@@ -8,7 +8,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "org.example.definitions",
-        plugin = {"pretty"}
+        plugin = {"pretty","html:target/cucumber-reports.html"}
 )
 //Run this file to execute tests
 public class TestRunner{
