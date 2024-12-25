@@ -4,15 +4,13 @@ import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import java.io.IOException;
 
-public class BookSteps {
-
+public class BookStepDefinitions {
     private static final String BASE_URL = "http://localhost:7081/api";
     private static final String USER = "admin";
     private static final String PASSWORD = "password";
@@ -38,35 +36,18 @@ public class BookSteps {
         process.destroy();
     }
 
-    @Given("The details to be updated")
-    public void the_details_to_be_updated(){
+    @Given("I send a request to get all books")
+    public void i_send_request_to_get_all_books() {
         response = SerenityRest.given()
                 .when()
-                .put("/books/1");
-               
+                .get("/books");
+         
     }
-    @When("I update a book with valid details")
-    public void i_update_a_book_with_valid_details(){
-        String requestBody = """
-                {
-                    "id": 1,
-                    "title": "Update Book title01"
-                    "author": "rowan atkinson"
-        
-                }
-                """;
 
-        response = SerenityRest.given()
-                .header("Content-Type", "application/json")
-                .body(requestBody)
-                .when()
-                .put("/books/1");
-                
-    }
-    @Then("the response status should be {int}")
-    public void the_response_status_should_be(int status){
+    @Then("the API should return status {int}")
+    public void the_api_should_return_status(int status){
         SerenityRest.restAssuredThat(response -> response.statusCode(status));
-        
+   
     }
 
 }
