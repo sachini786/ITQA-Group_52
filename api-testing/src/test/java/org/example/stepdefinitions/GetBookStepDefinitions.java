@@ -8,13 +8,13 @@ import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 
 public class GetBookStepDefinitions {
 
-    @When("I send a GET request to get all books")
-    public void iSendAGETRequestTo() {
+    @When("I send a request to get all books")
+    public void iSendRequestToGetAllBooks() {
         SerenityRest.when()
                 .get("/books");
     }
-    @Then("the response status code should be {int}")
-    public void theResponseStatusCodeShouldBe(int statusCode) {
+    @Then("API response status code should be {int}")
+    public void responseStatusCodeShouldBe(int statusCode) {
         restAssuredThat(response -> response.statusCode(statusCode));
     }
 

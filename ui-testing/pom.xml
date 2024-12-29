@@ -23,11 +23,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
 
         <!-- Serenity Dependencies -->
         <dependency>
@@ -66,14 +61,6 @@
             <version>${serenity.cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- libraries used directly from serenity-core-->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.3.2</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
@@ -84,25 +71,6 @@
             <artifactId>xml-path</artifactId>
             <version>4.3.3</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>3.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-xml</artifactId>
-            <version>3.0.6</version>
-        </dependency>
-
-        <!-- General test libraries -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
