@@ -30,6 +30,22 @@ jobs:
     
     - name: Run API jar
       run: java -jar ./api-testing/src/test/resources/libs/demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+      
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Install ChromeDriver
+      run: |
+        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
+        echo "Chrome Version: $CHROME_VERSION"
+        sudo apt-get install -y unzip
+        wget https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        chromedriver --version
+        
     - name: Run Test Automation with Maven
       run: mvn clean verify
 
