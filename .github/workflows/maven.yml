@@ -27,8 +27,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: setup-chromedriver
-      uses: nanasess/setup-chromedriver@v2.3.0
+    - name: Install Google Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+        google-chrome --version
+        
+    - name: Install ChromeDriver
+      run: |
+        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
+        echo "Chrome Major Version: $CHROME_VERSION"
+        wget https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/chromedriver
+        sudo chmod +x /usr/local/bin/chromedriver
+        chromedriver --version
       
     - name: Run API jar
       run: java -jar ./api-testing/src/test/resources/libs/demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
