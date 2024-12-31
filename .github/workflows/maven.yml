@@ -28,16 +28,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-
-    - name: Start Xvfb
-      run: |
-        Xvfb :99 -ac &
-        export DISPLAY=:99
       
     - name: Run API jar
       run: java -jar ./api-testing/src/test/resources/libs/demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
         
     - name: Build and run tests with Maven
-      env:
-        DISPLAY: ":99"
-      run: mvn clean verify -Dtestng.dtd.http=true -Dwebdriver.chrome.args="--headless --no-sandbox --disable-dev-shm-usage" -Dwebdriver.chrome.driver=/usr/bin/chromedriver
+      run: mvn clean verify -Dwebdriver.chrome.driver=/usr/bin/chromedriver
