@@ -17,7 +17,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout code
@@ -28,9 +28,29 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Install Google Chrome Driver
+
+    - name: Install Dependencies and Chrome
       run: |
-        sudo apt-get install chromium-chromedriver
+        sudo apt-get update
+        sudo apt-get install -y wget curl unzip
+        sudo apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxrandr2 libgbm1 libasound2 libu2f-udev
+        sudo apt-get install -y libicu70
+        
+        # Download and install Google Chrome for Testing
+        export CHROME_VERSION=131.0.6778.204
+        curl -sSL https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-headless-shell-linux64.zip -o chrome-headless-shell-linux64.zip
+        unzip chrome-headless-shell-linux64.zip
+        
+        # Move the 'chrome-headless-shell' binary to /usr/bin
+        if [ -f "chrome-headless-shell-linux64/chrome-headless-shell" ]; then
+          sudo mv chrome-headless-shell-linux64/chrome-headless-shell /usr/bin/google-chrome
+        else
+          echo "Chrome binary not found in the expected location."
+          exit 1
+        fi
+        
+        # Verify installation
+        google-chrome --version
       
     - name: Run API jar
       run: java -jar ./api-testing/src/test/resources/libs/demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
