@@ -32,9 +32,7 @@ jobs:
     - name: Install Dependencies and Chrome
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget curl unzip
-        sudo apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxrandr2 libgbm1 libasound2 libu2f-udev
-        sudo apt-get install -y libicu70
+        sudo apt-get install -y wget curl unzip libicu70 libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcomposite1 libxcursor1 libxi6 libxrandr2 libgbm1 libasound2 libu2f-udev
         
         # Download and install Google Chrome for Testing
         export CHROME_VERSION=131.0.6778.204
