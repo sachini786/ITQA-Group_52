@@ -28,9 +28,34 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Install Google Chrome Driver
+
+    - name: Install Chrome dependencies
+      run: sudo apt-get update && sudo apt-get install -y wget unzip xvfb libnss3 libgconf-2-4 libxrandr2 libxi6 libasound2 libxtst6 libatk-bridge2.0-0 libgtk-3-0
+
+    - name: Install Google Chrome
       run: |
-        sudo apt-get install chromium-chromedriver
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+        google-chrome --version
+
+    - name: Set up ChromeDriver
+      run: |
+        CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+")
+        wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip
+        unzip chromedriver-linux64.zip
+        sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
+        sudo chmod +x /usr/bin/chromedriver
+
+    - name: Start Xvfb
+      run: |
+        Xvfb :99 -ac &
+        export DISPLAY=:99
+
+    - name: Build and run tests with Maven
+      env:
+        DISPLAY: ":99"
+        _JAVA_OPTIONS: "-Dwebdriver.chrome.driver=/usr/bin/chromedriver"
+      run: mvn clean verify -Dtestng.dtd.http=true -Dwebdriver.chrome.args="--headless --no-sandbox --disable-dev-shm-usage"
       
     - name: Run API jar
       run: java -jar ./api-testing/src/test/resources/libs/demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
