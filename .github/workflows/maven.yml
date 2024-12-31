@@ -41,3 +41,16 @@ jobs:
       env:
         DISPLAY: ":99"
       run: mvn clean verify
+      continue-on-error: true
+
+    - name: Upload Serenity Report for UI
+      uses: actions/upload-artifact@v4
+      with:
+        name: ui-serenity-reports
+        path: ui-testing/target/site/serenity
+
+    - name: Upload Serenity Report for API
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-serenity-reports
+        path: api-testing/target/site/serenity
