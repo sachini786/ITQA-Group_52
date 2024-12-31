@@ -40,4 +40,4 @@ jobs:
     - name: Build and run tests with Maven
       env:
         DISPLAY: ":99"
-      run: mvn clean verify -Dwebdriver.chrome.args="--headless --no-sandbox --disable-dev-shm-usage"
+      run: mvn clean verify -Dtestng.dtd.http=true -Dwebdriver.chrome.args="--headless --no-sandbox --disable-dev-shm-usage"
