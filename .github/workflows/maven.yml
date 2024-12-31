@@ -30,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Install Chrome dependencies
-      run: sudo apt-get update && sudo apt-get install -y wget unzip xvfb libnss3 libgconf-2-4 libxrandr2 libxi6 libasound2 libxtst6 libatk-bridge2.0-0 libgtk-3-0
+      run: sudo apt-get update && sudo apt-get install -y wget unzip xvfb libnss3 libgconf-2-4 libxrandr2 libxi6 libxtst6 libatk-bridge2.0-0 libgtk-3-0
 
     - name: Install Google Chrome
       run: |
