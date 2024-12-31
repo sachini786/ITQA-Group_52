@@ -40,4 +40,4 @@ jobs:
     - name: Build and run tests with Maven
       env:
         DISPLAY: ":99"
-      run: mvn clean verify -Dwebdriver.chrome.driver=/usr/bin/chromedriver
+      run: mvn clean verify
