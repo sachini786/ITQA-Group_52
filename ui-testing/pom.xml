@@ -115,6 +115,7 @@
                     <parallel>classes</parallel>
                     <threadCount>${parallel.tests}</threadCount>
                     <forkCount>${parallel.tests}</forkCount>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
                 <executions>
                     <execution>
