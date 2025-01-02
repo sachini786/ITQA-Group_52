@@ -7,12 +7,20 @@ public class AuthStepDefinitions {
     private static final String BASE_URL = "http://localhost:7081/api";
     @Given("I am a normal user")
     public void iAmANormalUser() {
-
+        String requestBody ="""
+                {
+                "id": 1,
+                "title": "title01",
+                "author": "amal"
+                }
+                """;
 
         SerenityRest.given()
+                .header("Content-Type", "application/json")
                 .baseUri(BASE_URL)
                 .auth()
-                .basic("user","password");
+                .basic("user","password")
+                .body(requestBody);
     }
 
     @Given("I am an admin user")
