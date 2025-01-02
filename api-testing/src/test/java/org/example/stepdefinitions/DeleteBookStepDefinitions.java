@@ -20,4 +20,9 @@ public class DeleteBookStepDefinitions {
         SerenityRest.restAssuredThat(response->response.statusCode(int1));
     }
 
+    @When("I send a DELETE request to delete a book with ID {string}")
+    public void iSendADELETERequestToDeleteABookWithID(String arg0) {
+        response = SerenityRest.when()
+                .delete("/books/" + arg0);
+    }
 }
