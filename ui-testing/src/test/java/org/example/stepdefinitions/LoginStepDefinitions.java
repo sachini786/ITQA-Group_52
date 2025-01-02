@@ -14,17 +14,17 @@ public class LoginStepDefinitions {
     LoginAction login;
     DashboardAction dashboard;
 
-    @Given("I navigate to OrangeHRM login page")
+    @Given("user navigate to OrangeHRM login page")
     public void navigateToOrangeHRMLoginPage() {
         navigate.toOrangeHRMLoginPage();
     }
 
-    @When("login with username {string} and password {string}" )
+    @When("user login with username {string} and password {string}" )
     public void login(String username, String password) {
         login.loginWithUsernameAndPassword(username,password);
     }
 
-    @Then("should redirect to dashboard")
+    @Then("user expect redirection to dashboard")
     public void shouldRedirectToDashboard() {
         assertThat(dashboard.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
     }
