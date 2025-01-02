@@ -11,4 +11,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
         features = "classpath:features",
         tags = "@ui"
 )
-public class CucumberTestSuite {}
+public class CucumberTestSuite {
+
+
+}

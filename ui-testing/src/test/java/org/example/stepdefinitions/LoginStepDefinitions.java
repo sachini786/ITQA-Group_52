@@ -1,5 +1,6 @@
 package org.example.stepdefinitions;
 
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,4 +29,5 @@ public class LoginStepDefinitions {
     public void shouldRedirectToDashboard() {
         assertThat(dashboard.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
     }
+
 }
