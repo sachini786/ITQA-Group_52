@@ -3,6 +3,7 @@ package org.example.actions;
 import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,21 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RecruitmentAction extends UIInteractionSteps {
 
     WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-
-//    @Step("Verify dashboard page")
-//    public void verifyDashboardPage() {
-//        assertThat(getDriver().getCurrentUrl()).contains("dashboard");
-//    }
-
-//    @Step("Click Recruitment tab")
-//    public void clickRecruitmentTab() {
-//        $(By.xpath("//a[@href='/web/index.php/recruitment/viewRecruitmentModule']")).click();
-//    }
-
-//    @Step("Verify Recruitment page")
-//    public void verifyRecruitmentPage() {
-//        assertThat(getDriver().getCurrentUrl()).contains("recruitment");
-//    }
 
     @Step("Click Vacancies tab")
     public void clickVacanciesTab() {
@@ -44,38 +30,36 @@ public class RecruitmentAction extends UIInteractionSteps {
     }
 
     @Step("Select Job Title")
-    public void selectJobTitle(String jobTitle) {
+    public void selectJobTitle() {
 
-        $(By.xpath("//div[contains(@class,'oxd-select-text--after')]")).click();
-
-        // Select the job title dynamically from the options
-        $(By.xpath(String.format("//div[@role='listbox']//span[contains(text(),'%s')]", jobTitle))).click();
-
-
-
+        $(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[1]/div[2]/div/div[2]/div/div/div[2]/i")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div/div[2]/div/div[2]/div[2]")));
+        WebElement firstELement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div/div[2]/div/div[2]/div[4]")));
+        firstELement.click();
 
     }
 
     @Step("Fill Hiring Manager")
-    public void fillHiringManager(String letter) {
-        // Type the letter "a" into the input field
-        $(By.xpath("//div[@class='oxd-autocomplete-text-input--active']//input")).sendKeys(letter);
+    public void fillHiringManager() {
 
-        // Wait for the suggestion to appear
-        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-autocomplete-wrapper']//span")));
+        $(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[3]/div[1]/div/div[2]/div/div/input")).sendKeys("a");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/div[1]/div/div[2]/div/div[2]")));
+        WebElement firstElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/div[1]/div/div[2]/div/div[2]/div[1]/span")));
+        firstElement.click();
 
-        // Click the first suggestion from the list
-        $(By.xpath("//div[@class='oxd-autocomplete-wrapper']//span[1]")).click();
     }
 
     @Step("Click Save button")
     public void clickSaveButton() {
-        $(By.xpath("//button[@type='submit' and contains(text(), 'Save')]")).click();    }
+        WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[7]/button[2]")));
+        button.click();
+
+    }
 
     @Step("Verify Edit Vacancy page")
     public void verifyEditVacancyPage() {
-        By editVacancyTitle = By.xpath("//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title' and contains(text(), 'Edit Vacancy')]");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(editVacancyTitle));
+        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/h6")));
+
+
     }
 }

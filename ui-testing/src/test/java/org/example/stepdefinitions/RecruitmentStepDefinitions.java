@@ -42,11 +42,11 @@ public class RecruitmentStepDefinitions {
 
     }
 
-    @When("user adds a new vacancy with Vacancy Name {string}, Job Title {string}, Hiring Manager {string}")
-    public void userAddsANewVacancy(String vacancyName, String jobTitle, String hiringManager) {
+    @When("user adds a new vacancy with Vacancy Name {string}")
+    public void userAddsANewVacancy(String vacancyName) {
         recruitmentAction.fillVacancyName(vacancyName);
-        recruitmentAction.selectJobTitle(jobTitle);
-        recruitmentAction.fillHiringManager(hiringManager);
+        recruitmentAction.selectJobTitle();
+        recruitmentAction.fillHiringManager();
         recruitmentAction.clickSaveButton();
     }
 
