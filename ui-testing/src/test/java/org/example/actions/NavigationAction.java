@@ -1,5 +1,6 @@
 package org.example.actions;
 
+import net.serenitybdd.core.annotations.findby.By;
 import net.thucydides.core.annotations.Step;
 import net.serenitybdd.core.steps.UIInteractionSteps;
 
@@ -10,18 +11,9 @@ public class NavigationAction extends UIInteractionSteps {
         openUrl("https://opensource-demo.orangehrmlive.com/");
     }
 
-//    nadun
 
     @Step("Navigate to the Admin page")
-    public void toAdminPage(){
-        openUrl("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
+    public void toOrangeHRMAdminPage(){
+        $(By.xpath("//span[@data-v-7b563373 and @data-v-6475d26d and text()='Admin']")).click();
     }
-
-    @Step("Navigate to the Add User Page")
-    public void toAddUserPage(){
-        openUrl("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser");
-
-    }
-
-
 }

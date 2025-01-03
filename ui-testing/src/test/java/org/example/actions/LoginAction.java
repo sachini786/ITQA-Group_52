@@ -11,11 +11,13 @@ public class LoginAction extends UIInteractionSteps {
         $(By.name("username")).sendKeys(username);
         $(By.name("password")).sendKeys(password,Keys.ENTER);
     }
-    @Step("Login as a user '{0}'")
-    public void loggedWithUsernameAndPassword(String username,String password) {
-        $(By.name("username")).sendKeys(username);
-        $(By.name("password")).sendKeys(password,Keys.ENTER);
-    }
+
+
+//    @Step("Login as a user '{0}'")
+//    public void loggedWithUsernameAndPassword(String username,String password) {
+//        $(By.name("username")).sendKeys(username);
+//        $(By.name("password")).sendKeys(password,Keys.ENTER);
+//    }
 
 
 }
