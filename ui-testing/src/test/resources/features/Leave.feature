@@ -1,7 +1,7 @@
 Feature: Leave
 
   Scenario: Navigate to Leave page
-    Given user is in dashboard
+    Given user is in the dashboard
     When user click leave section in sidebar
     Then user expect redirection to leave section
 

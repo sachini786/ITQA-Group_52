@@ -17,7 +17,7 @@ public class LeaveStepDefinitions {
     CommonAction commonAction;
     LeaveAction leaveAction;
 
-    @Given("user is in dashboard")
+    @Given("user is in the dashboard")
     public void userIsInDashboard() {
         navigateAction.toOrangeHRMLoginPage();
         loginAction.loginWithUsernameAndPassword("Admin", "admin123");
