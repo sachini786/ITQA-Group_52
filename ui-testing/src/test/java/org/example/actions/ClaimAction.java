@@ -45,7 +45,6 @@ public class ClaimAction extends UIInteractionSteps {
 
     @Step("enter employee name to search")
     public void enterEmployeeNameToSearch(String name){
-        $(By.xpath("//div[contains(@class, '--toggle')]//button[@type='button']")).click();
         By employeeNameSearch=By.xpath("//input[@placeholder='Type for hints...']");
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameSearch));
         $(employeeNameSearch).type(name);
