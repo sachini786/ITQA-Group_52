@@ -4,15 +4,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.actions.NavigationAction;
-import org.example.actions.DashboardAction;
 import org.example.actions.LoginAction;
+import org.example.actions.CommonAction;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginStepDefinitions {
     NavigationAction navigate;
     LoginAction login;
-    DashboardAction dashboard;
+    CommonAction dashboard;
 
     @Given("user navigate to OrangeHRM login page")
     public void navigateToOrangeHRMLoginPage() {
