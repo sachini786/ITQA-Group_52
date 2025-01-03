@@ -61,15 +61,14 @@ public class ClaimStepDefinitions {
         assertThat(commonAction.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewAssignClaim");
     }
 
-    @When("user search for claim with employee name {string},event {string}")
-    public void userSearchForClaimWithEmployeeNameEventCurrency(String employeeName, String event){
-        claimAction.enterEmployeeNameToSearch(employeeName);
-        claimAction.selectEventToSearch(event);
+    @When("user search for claim with employee name {string}")
+    public void userSearchForClaimWithEmployeeNameEventCurrency(String employeeName){
+        claimAction.selectEmployeeName(employeeName);
         claimAction.clickSearch();
     }
 
-    @Then("user expect to see claim with name {string},event {string}")
-    public void userExpectToSeeClaimWithNameEvent(String name, String event) {
-        //claimAction.validateIfTableHasClaim(name,event,"Initiated");
+    @Then("user expect to see claim with name {string}")
+    public void userExpectToSeeClaimWithNameEvent(String name) {
+        claimAction.validateIfTableHasClaim(name);
     }
 }

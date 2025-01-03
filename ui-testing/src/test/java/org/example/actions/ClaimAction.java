@@ -3,7 +3,9 @@ package org.example.actions;
 import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.thucydides.core.annotations.Step;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,11 +23,8 @@ public class ClaimAction extends UIInteractionSteps {
 
     @Step("select employee name")
     public void selectEmployeeName(String employeeName){
-        $(By.xpath("//label[contains(text(), 'Employee Name')]/following::input[1]")).type(employeeName);
-        $(By.xpath(String.format("//div[@role='listbox']//div[@role='option']//span[text()='%s']",employeeName))).click();
+        $(By.xpath("//label[contains(text(), 'Employee Name')]/following::input[1]")).sendKeys(employeeName, Keys.ARROW_DOWN, Keys.ENTER);
     }
-
-    ;
 
     @Step("select event")
     public void selectEvent(String event){
@@ -45,15 +44,9 @@ public class ClaimAction extends UIInteractionSteps {
 
     @Step("wait for assign claim form")
     public void waitUntilClaimForm(){
-        By assignClaimTitle=By.xpath("//h6[contains(@class, 'oxd-text--h6') and contains(@class, 'orangehrm-main-title')]");
+        By assignClaimTitle=By.xpath("//h6[contains(@class, 'oxd-text--h6') and contains(@class, 'orangehrm-main-title') and and contains(text(), 'Assign Claim')]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(assignClaimTitle));
-    }
-
-    @Step("enter employee name to search")
-    public void enterEmployeeNameToSearch(String name){
-        By employeeNameSearch=By.xpath("//input[@placeholder='Type for hints...']");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameSearch));
-        $(employeeNameSearch).type(name);
+        Assert.assertEquals("Assign Claim",find(assignClaimTitle).getAttribute("innerHTML"));
     }
 
     @Step("enter event to search")
@@ -68,18 +61,16 @@ public class ClaimAction extends UIInteractionSteps {
     }
 
     @Step("validate if the table has claim")
-    public void validateIfTableHasClaim(String employeeName,String eventName,String status){
+    public void validateIfTableHasClaim(String employeeName){
         ListOfWebElementFacades rows = findAll(By.cssSelector(".oxd-table-row"));
 
         boolean rowFound = rows.stream().anyMatch(row -> {
             String empName = row.findElement(By.xpath(".//div[2]")).getText();
-            String event = row.findElement(By.xpath(".//div[3]//span")).getText();
-            String rowStatus = row.findElement(By.xpath(".//div[7]")).getText();
-            return empName.equals(employeeName) && event.equals(eventName) && rowStatus.equals(status);
+            return empName.equals(employeeName);
         });
 
         assertThat(rowFound)
-                .as("Row with Employee Name: %s, Event: %s, Status: %s should exist", employeeName, eventName, status)
+                .as("Row with Employee Name: %s,should exist", employeeName)
                 .isTrue();
     }
 
