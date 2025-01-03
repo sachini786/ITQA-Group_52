@@ -9,12 +9,17 @@ Feature: Update Book by ID
   @CreateBookForUpdate
   Scenario: Update a book with missing mandatory fields as an admin
     Given User need to update a book as an admin
-    When I send a PUT request to update the test book with missing mandatory fields with ID 2
+    When I send a PUT request to update the test book with missing mandatory fields with ID 1
     Then the response status code should be 400
 
   @CreateBookForUpdate
   Scenario: Update a book with a valid ID as a normal user
     Given User need to update a book as an normal user
-    When I send a PUT request to update the test book with ID 3
+    When I send a PUT request to update the test book with ID 1
     Then the response status code should be 403
 
+  @CreateBookForUpdateAndDelete
+  Scenario: Send an empty string as an admin
+    Given User need to update a book as an admin
+    When I send a request with an empty string value with ID 1
+    Then the response status code should be 400

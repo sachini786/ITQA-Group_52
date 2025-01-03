@@ -18,7 +18,6 @@ public class UpdateAllBooksStepDefinitions{
 
     private RequestSpecification requestSpecification;
     private static final String BASE_URL = "http://localhost:7081/api";
-//    private final int bookID = HookDefinitions.getCreatedBookID();
 
     @When("I send a PUT request to update the test book with ID {int}")
     public void iSendRequestToUpdateBooks(int bookID){
@@ -89,6 +88,20 @@ public class UpdateAllBooksStepDefinitions{
     }
 
 
+    @When("I send a request with an empty string value with ID {int}")
+    public void iSendARequestWithAnEmptyStringValueWithID(int bookID) {
+        String requestBody ="""
+                {
+                "id": %d,
+                "title": "",
+                "author": "Rowan"
+                }
+                """;
+        response = requestSpecification.when()
+                .header("Content-Type", "application/json")
+                .body(requestBody.formatted(bookID))
+                .put("/books/" + bookID);
+    }
 }
 
 
