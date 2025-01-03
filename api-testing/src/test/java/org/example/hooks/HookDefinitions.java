@@ -63,16 +63,7 @@ public class HookDefinitions {
                 .getBody().as(Book.class, ObjectMapperType.JACKSON_2).id();
 
     }
-//    @After(value="@CreateBookForUpdate")
-//    public void DeleteBook(){
-//        SerenityRest.given()
-//                .baseUri(BASE_URL)
-//                .auth()
-//                .basic("user","password")
-//                .header("Content-Type", "application/json")
-//                .delete(String.format("/books/%d",createdBookIDForUpdate));
-//
-//    }
+
     @Before(value="@CreateBookForUpdateAndDelete")
     public void CreateBookForUpdateAndDelete(){
 

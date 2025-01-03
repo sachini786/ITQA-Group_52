@@ -18,7 +18,6 @@ public class UpdateAllBooksStepDefinitions{
 
     private RequestSpecification requestSpecification;
     private static final String BASE_URL = "http://localhost:7081/api";
-//    private final int bookID = HookDefinitions.getCreatedBookID();
 
     @When("I send a PUT request to update the test book with ID {int}")
     public void iSendRequestToUpdateBooks(int bookID){
