@@ -13,9 +13,8 @@ public class DeleteBookStepDefinitions {
     public Response response;
     private RequestSpecification requestSpecification;
     private static final String BASE_URL = "http://localhost:7081/api/";
-    private final int bookId = HookDefinitions.getCreatedBookID();
 
-    @Given("user authenticate using by {string} and {string}")
+    @Given("user authenticate using {string} and {string}")
     public void userUsernameAndPassword(String username,String password) {
         requestSpecification = SerenityRest.given()
                 .baseUri(BASE_URL)
@@ -23,26 +22,27 @@ public class DeleteBookStepDefinitions {
                 .basic(username, password);
     }
 
-    @When("I send a DELETE request to delete a book with")
-    public void iSendRequestToDeleteBooks() {
+    @When("I send a DELETE request to delete a book with valid ID")
+    public void sendRequestToDeleteBooksWithValidId() {
+        int validBookId = HookDefinitions.getCreatedBookIDForDelete();
         response = requestSpecification.when()
-                .delete("/books/" + bookId);
+                .delete("/books/" + validBookId);
     }
 
-//    @When("I send a DELETE request to delete a book with {int}")
-//    public void iSendRequestToDeleteBooks(int bookId) {
-//        response = requestSpecification.when()
-//                .delete("/books/" + bookId);
-//    }
+    @When("I send a DELETE request to delete a book with non-existing {int}")
+    public void sendRequestToDeleteBooksWithNonExistingId(int nonExistingBookId) {
+        response = requestSpecification.when()
+                .delete("/books/" + nonExistingBookId);
+    }
 
-    @Then("the response status should be {int}")
+    @Then("Delete response status should be {int}")
     public void responseStatusCodeShouldBe(int statusCode) {
         SerenityRest.restAssuredThat(response->response.statusCode(statusCode));
     }
 
-    @When("I send a DELETE request to delete a book with {string}")
-    public void iSendADELETERequestToDeleteABookWithID(String id) {
+    @When("I send a DELETE request to delete a book with invalid ID format {string}")
+    public void sendRequestToDeleteBooksWithInvalidID(String invalidFormatBookId) {
         response = requestSpecification.when()
-                .delete("/books/" + id);
+                .delete("/books/" + invalidFormatBookId);
     }
 }
