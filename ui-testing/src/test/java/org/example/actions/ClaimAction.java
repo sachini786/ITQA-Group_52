@@ -11,6 +11,7 @@ public class ClaimAction extends UIInteractionSteps {
     @Step("click assign claim")
     public void clickAssignClaim(){
         $(By.xpath("//button[contains(., 'Assign Claim')]")).click();
+        
     }
 
     @Step("select employee name")
