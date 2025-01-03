@@ -5,39 +5,72 @@ import io.cucumber.java.Before;
 import io.restassured.mapper.ObjectMapperType;
 import lombok.Getter;
 import net.serenitybdd.rest.SerenityRest;
+import com.github.javafaker.Faker;
 import org.example.models.Book;
 
-
 public class HookDefinitions {
-    int createdBookID;
     private static final String BASE_URL = "http://localhost:7081/api";
+    @Getter
+    private static int createdBookIDForUpdate;
+    @Getter
+    private static int createdBookIDForDelete;
+    private static String title;
+    private static String author;
 
-//    @Getter
-//    private static int createdBookID;
-    @Before(value="@CreateBook")
-    public void beforeCreateBook(){
+    @Before(value="@CreateBookForDelete")
+    public void CreateBookForDelete(){
 
-        String requestBody ="""
+        title=Faker.instance().book().title();
+        author=Faker.instance().book().author();
+
+        String requestBody =String.format("""
                 {
-                "title": "Book1",
-                "author": "Author1"
+                "title": "%s",
+                "author": "%s"
                 }
-                """;
-        createdBookID = SerenityRest.given()
+                """,title,author);
+        createdBookIDForDelete = SerenityRest.given()
                 .baseUri(BASE_URL)
                 .auth()
                 .basic("user","password")
+                .body(requestBody)
                 .header("Content-Type", "application/json")
-                         .body(requestBody).post("/books").getBody().as(Book.class, ObjectMapperType.JACKSON_2).id();
-        ;    }
-    @After(value="@CreateBook")
-    public void afterCreateBook(){
-         SerenityRest.given()
+                .post("/books")
+                .getBody().as(Book.class, ObjectMapperType.JACKSON_2).id();
+    }
+
+    @Before(value="@CreateBookForUpdate")
+    public void CreateBookForUpdate(){
+
+        title=Faker.instance().book().title();
+        author=Faker.instance().book().author();
+
+        String requestBody =String.format("""
+                {
+                "title": "%s",
+                "author": "%s"
+                }
+                """,title,author);
+        createdBookIDForUpdate = SerenityRest.given()
                 .baseUri(BASE_URL)
                 .auth()
                 .basic("user","password")
-                 .header("Content-Type", "application/json")
-                .delete(String.format("/books/%d",createdBookID));
+                .body(requestBody)
+                .header("Content-Type", "application/json")
+                .post("/books")
+                .then()
+                .statusCode(201) // Validate creation
+                .extract()
+                .path("id");
+
+    }
+    @After(value="@CreateBookForUpdate")
+    public void DeleteBook(){
+        SerenityRest.given()
+                .baseUri(BASE_URL)
+                .auth()
+                .basic("admin","password")
+                .delete(String.format("api/books/%d",createdBookIDForDelete));
 
     }
 }
