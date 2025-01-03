@@ -54,14 +54,11 @@ public class HookDefinitions {
         createdBookIDForUpdate = SerenityRest.given()
                 .baseUri(BASE_URL)
                 .auth()
-                .basic("user","password")
+                .basic("admin","password")
                 .body(requestBody)
                 .header("Content-Type", "application/json")
                 .post("/books")
-                .then()
-                .statusCode(201) // Validate creation
-                .extract()
-                .path("id");
+                .getBody().as(Book.class, ObjectMapperType.JACKSON_2).id();
 
     }
     @After(value="@CreateBookForUpdate")
