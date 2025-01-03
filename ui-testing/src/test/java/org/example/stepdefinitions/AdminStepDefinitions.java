@@ -1,4 +1,5 @@
 package org.example.stepdefinitions;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -33,10 +34,16 @@ public class AdminStepDefinitions {
         assertThat(commonAction.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
     }
 
-    @Given("user is in Admin page and click Add button")
+    @Given("user is in Admin page")
     public void userIsInAdminPageAndClickAddButton(){
         userIsInTheDashboard();
         userClickAdminSectionInSidebar();
+
+
+    }
+
+    @When("user clicking the add Button")
+    public void userClickingTheAddButton(){
         adminAction.clickAddUser();
         adminAction.waitForRedirectionToAddUser();
     }
@@ -56,7 +63,7 @@ public class AdminStepDefinitions {
     public void userExpectToRedirectedToTheAdminSection(){
         adminAction.waitForRedirection();
     }
-
+//page for the jobadding
     @Given("user is in the admin page")
     public void userIsInTheAdminPage(){
         userIsInTheDashboard();
@@ -68,7 +75,7 @@ public class AdminStepDefinitions {
     }
     @Then("redirecting to the job title page")
     public void redirectingToTheJobTitlePage(){
-        adminAction.waitForJobPage();
+        adminAction.waitForJobTitlePage();
     }
 
     @Then("clicking the add job button")
@@ -78,14 +85,17 @@ public class AdminStepDefinitions {
 
     @Then("redirecting to the  Add job page")
     public void redirecting_to_the_addjob_page() {
-        adminAction.waitForJobPage();
+        adminAction.waitForJobAddPage();
     }
-    @Then("fill the job title as {string}")
+    @And("fill the job title as {string}")
     public void fill_the_job_title_as_block(String jobtitle) {
-        adminAction.fillTheJobTitle(jobtitle);
+        adminAction.fillTheJobTitle("jobtitle");
     }
 
 
-
+    @And("click on the save button")
+    public void clickOnTheSaveButton() {
+        adminAction.clickOnSave();
+    }
 }
 
