@@ -27,7 +27,7 @@ Feature: Book API Test Scenarios
     Examples:
       | id | title | author          | status |
       |    |       |                 | 400    |
-      | 6  |       |                 | 400    |
+      | 6  |ABC    |                 | 400    |
       |    |Hamlet |                 | 400    |
       |    |       |Charles Dickens  | 400    |
 
