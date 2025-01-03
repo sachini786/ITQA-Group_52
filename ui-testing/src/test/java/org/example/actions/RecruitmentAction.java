@@ -58,8 +58,8 @@ public class RecruitmentAction extends UIInteractionSteps {
 
     @Step("Verify Edit Vacancy page")
     public void verifyEditVacancyPage() {
-        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/h6")));
 
+        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/h6")));
 
     }
 }
