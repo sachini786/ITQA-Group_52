@@ -20,37 +20,49 @@ public class GetAllBooksStepDefinitions {
     private static final String BASE_URL = "http://localhost:7081/";
 
     @Given("user authenticate using by {string} and {string} wants to get all books")
-    public void userUsernameAndPassword(String username,String password) {
+    public void authenticatedUserWantsToGetAllBooks(String username,String password) {
         requestSpecification = SerenityRest.given()
                 .baseUri(BASE_URL)
                 .auth()
                 .basic(username, password);
     }
 
-    @Given("user want to get all books when there are no books exist")
-    public void noBookExist() {
-        userUsernameAndPassword("user","password");
+    @Given("user want to get all books when there are no books available")
+    public void userWantToGetAllBooksWhenThereAreNoBooksAvailable() {
+        authenticatedUserWantsToGetAllBooks("user","password");
+        userCallServiceToGetAllBooks();
+
+        Book[] allBooksAvailable= response.getBody().as(Book[].class, ObjectMapperType.JACKSON_2);
+        for (Book book : allBooksAvailable) {
+
+            SerenityRest.given()
+                    .baseUri(BASE_URL)
+                    .auth()
+                    .basic("user","password")
+                    .delete(String.format("api/books/%d",book.id()));
+        }
+
     }
 
     @When("user call service to get all books")
-    public void sendARequestToGetAllBooks() {
+    public void userCallServiceToGetAllBooks() {
         response = requestSpecification.when().get("/api/books");
     }
 
 
     @Then("user expect response status to be {int}")
-    public void theResponseStatusShouldBe(int statusCode) {
+    public void userExpectResponseStatusToBe(int statusCode) {
         response.then().statusCode(statusCode);
     }
 
     @Then("user expect response should contain an empty list")
-    public void theResponseShouldContainAnEmptyList() {
+    public void userExpectResponseShouldContainAnEmptyList() {
         response.then().body("result",Matchers.hasSize(0));
     }
 
-    @Given("user want to get all books there are books exist")
-    public void hasBooks() {
-        userUsernameAndPassword("user","password");
+    @Given("user want to get all books when there are books available")
+    public void userWantToGetAllBooksThereAreBooksAvailable() {
+        authenticatedUserWantsToGetAllBooks("user","password");
         final String REQUEST_BODY= """
                     {
                         "title": "Harry Potter",
@@ -71,12 +83,12 @@ public class GetAllBooksStepDefinitions {
     }
 
     @Then("user expect response should contain a list of books")
-    public void theResponseShouldContainAListOfBooks() {
+    public void userExpectResponseShouldContainAListOfBooks() {
         response.then().body("result.size()", greaterThan(0));
     }
 
     @Then("user expect response should have valid schema")
-    public void validateResponseSchema() {
+    public void userExpectResponseShouldHaveValidSchema() {
         response
         .then()
         .body("$", not(empty()))

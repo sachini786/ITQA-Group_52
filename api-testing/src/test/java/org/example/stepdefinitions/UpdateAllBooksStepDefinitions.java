@@ -14,13 +14,12 @@ import org.example.models.Book;
 
 public class UpdateAllBooksStepDefinitions{
     public Response response;
-    int bookID;
-
     private RequestSpecification requestSpecification;
     private static final String BASE_URL = "http://localhost:7081/api";
+    private final int bookID = HookDefinitions.getCreatedBookIDForUpdate();
 
-    @When("I send a PUT request to update the test book with ID {int}")
-    public void iSendRequestToUpdateBooks(int bookID){
+    @When("I send a PUT request to update a book")
+    public void iSendRequestToUpdateBook(){
         String requestBody ="""
                 {
                 "id": %d,
@@ -33,25 +32,9 @@ public class UpdateAllBooksStepDefinitions{
                 .body(requestBody.formatted(bookID))
                 .put("/books/" + bookID);
     }
-        @When("I send a PUT request to update the test book with ID")
-        public void iSendRequestToUpdateBooks(){
-            String requestBody ="""
-                        {
-                        "id": %d,
-                        "title": "updated book title",
-                        "author": "Updated author"
-                        }
-                        """;
-            response = requestSpecification.when()
-                    .header("Content-Type", "application/json")
-                    .body(requestBody.formatted(bookID))
-                    .put("/books/" + bookID);
-        }
 
-
-
-    @When("I send a PUT request to update the test book with missing mandatory fields with ID {int}")
-    public void iSendRequestToUpdateBooksWithMissingFields(int bookID){
+    @When("I send a PUT request to update a book with missing mandatory fields")
+    public void iSendRequestToUpdateBooksWithMissingFields(){
         String requestBody ="""
                 {
                 "id": %d,
