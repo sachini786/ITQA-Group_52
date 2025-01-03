@@ -71,8 +71,8 @@ public class UpdateAllBooksStepDefinitions{
     }
 
 
-    @When("I send a request with an empty string value with ID {int}")
-    public void iSendARequestWithAnEmptyStringValueWithID(int bookID) {
+    @When("I send a request with an empty string value")
+    public void iSendARequestWithAnEmptyStringValueWithID() {
         String requestBody ="""
                 {
                 "id": %d,

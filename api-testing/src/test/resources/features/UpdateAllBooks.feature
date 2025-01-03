@@ -21,5 +21,5 @@ Feature: Update Book by ID
   @CreateBookForUpdateAndDelete
   Scenario: Send an empty string as an admin
     Given User need to update a book as an admin
-    When I send a request with an empty string value with ID 1
+    When I send a request with an empty string value
     Then the response status code should be 400
