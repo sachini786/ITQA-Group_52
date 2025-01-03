@@ -35,7 +35,7 @@ public class LeaveStepDefinitions {
     }
 
     @Given("user is in leave page wants to search for leaves")
-    public void userIsInLeavePageWantsToSearchForLeaves() {
+    public void userIsInLeavePage() {
         userIsInDashboard();
         userClickLeaveSectionInSidebar();
     }
@@ -68,6 +68,33 @@ public class LeaveStepDefinitions {
 
     @Then("user expect to see the leave requests for the employee")
     public void userExpectToSeeTheLeaveRequests() {
-        leaveAction.checkLeave();
+        leaveAction.checkRecord();
     }
+
+    @Given("user is in add entitlements page")
+    public void userIsInAddEntitlementsPage() {
+        userIsInLeavePage();
+        leaveAction.navigateToAddEntitlements();
+    }
+
+    @And("the user selects leave period {string}")
+    public void theUserSelectsLeavePeriod(String leavePeriod) {
+        leaveAction.selectLeavePeriod(leavePeriod);
+    }
+
+    @And("the user enters the entitlement as {int}")
+    public void theUserEntersTheEntitlementAs(int enetitlement) {
+        leaveAction.enterEntitlement(enetitlement);
+    }
+
+    @When("user clicks the save button")
+    public void userClicksTheSaveButton() {
+        leaveAction.clickSave();
+    }
+
+    @And("user clicks confirm button")
+    public void userClicksConfirmButton() {
+        leaveAction.clickConfirm();
+    }
+
 }
