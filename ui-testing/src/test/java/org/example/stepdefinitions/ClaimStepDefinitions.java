@@ -70,5 +70,6 @@ public class ClaimStepDefinitions {
 
     @Then("user expect to see claim with name {string},event {string}")
     public void userExpectToSeeClaimWithNameEvent(String name, String event) {
+        //claimAction.validateIfTableHasClaim(name,event,"Initiated");
     }
 }

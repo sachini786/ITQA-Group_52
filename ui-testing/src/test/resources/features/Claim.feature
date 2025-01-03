@@ -12,5 +12,5 @@ Feature: Claim
 
   Scenario: Search existing claim
     Given user is in claim page wants to search for claim
-    When user search for claim with employee name "Anoja Sliva",event "Accommodation"
-    Then user expect to see claim with name "Anoja Sliva",event "Accommodation"
+    When user search for claim with employee name "Giang Nguyen",event "Accommodation"
+    Then user expect to see claim with name "Giang Nguyen",event "Accommodation"
