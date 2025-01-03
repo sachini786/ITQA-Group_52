@@ -34,7 +34,7 @@ public class LeaveStepDefinitions {
         assertThat(commonAction.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList");
     }
 
-    @Given("user is in leave page wants to search for leaves")
+    @Given("user is in leave page")
     public void userIsInLeavePage() {
         userIsInDashboard();
         userClickLeaveSectionInSidebar();
@@ -43,7 +43,12 @@ public class LeaveStepDefinitions {
 
     @And("the user enters From Date = {string}")
     public void theUserEntersFromDateToDate(String fromDate) {
-        leaveAction.selectFromDate(fromDate);
+        leaveAction.selectDate("From Date", fromDate);
+    }
+
+    @And("the user enters To Date = {string}")
+    public void theUserEntersToDateToDate(String toDate) {
+        leaveAction.selectDate("To Date", toDate);
     }
 
     @And("the user selects leave status {string}")
@@ -97,4 +102,13 @@ public class LeaveStepDefinitions {
         leaveAction.clickConfirm();
     }
 
+    @And("user clicks Assign button")
+    public void userClicksAssignButton() {
+        leaveAction.clickAssign();
+    }
+
+    @And("user navigates to assign page")
+    public void userNavigatesToAssignPage() {
+        leaveAction.navigateToAssignPage();
+    }
 }

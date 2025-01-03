@@ -14,28 +14,31 @@ public class LeaveAction extends UIInteractionSteps {
         };
         return months[month - 1];
     }
+
     @Step
-    public void selectFromDate(String fromDate) {
-        String[] dateParts = fromDate.split("-");
+    public void selectDate(String label, String date) {
+        String[] dateParts = date.split("-");
         String year = dateParts[0];
         String day = String.valueOf(Integer.parseInt(dateParts[1]));
         String month = dateParts[2];
 
-        $(By.xpath("//label[contains(text(), 'From Date')]/following::input[1]")).click();
+        $(By.xpath(String.format("//label[contains(text(), '%s')]/following::input[1]", label))).click();
 
         while (!$(By.xpath("//div[contains(@class, 'oxd-calendar-selector-year-selected')]/p"))
                 .getText().equals(year)) {
-            $(By.xpath("//button[contains(@class, 'oxd-icon-button') and contains(@class, 'bi-chevron-right')]")).click();
+            $(By.xpath("//button[contains(@class, 'oxd-icon-button')]")).click();
         }
 
         while (!$(By.xpath("//div[contains(@class, 'oxd-calendar-selector-month-selected')]/p"))
                 .getText().equals(getMonthName(Integer.parseInt(month)))) {
-            $(By.xpath("//button[contains(@class, 'oxd-icon-button') and contains(@class, 'bi-chevron-right')]")).click();
+            $(By.xpath("//button[contains(@class, 'oxd-icon-button')]")).click();
         }
 
-
+        System.out.println(day);
         $(By.xpath(String.format("//div[@class='oxd-calendar-date-wrapper']//div[text()='%s']", day))).click();
     }
+
+
 
     @Step
     public  void selectLeaveStatus(String leaveStatus){
@@ -92,9 +95,13 @@ public class LeaveAction extends UIInteractionSteps {
     public void clickConfirm(){
         $(By.xpath("//button[contains(., ' Confirm ')]")).click();
     }
+    @Step
+    public void clickAssign(){
+        $(By.xpath("//button[contains(., ' Assign ')]")).click();
+    }
 
-//    @Step
-//    public void checkEntitlement(){
-//        assert $(By.xpath("//span[@class='oxd-text oxd-text--span']")).getText().contains("Records Found");
-//    }
+    @Step
+    public void navigateToAssignPage() {
+        $(By.xpath("//a[@class='oxd-topbar-body-nav-tab-item' and text()='Assign Leave']")).click();
+    }
 }
