@@ -23,25 +23,25 @@ public class DeleteBookStepDefinitions {
     }
 
     @When("I send a DELETE request to delete a book with valid ID")
-    public void iSendRequestToDeleteBooks() {
+    public void sendRequestToDeleteBooksWithValidId() {
         int validBookId = HookDefinitions.getCreatedBookIDForDelete();
         response = requestSpecification.when()
                 .delete("/books/" + validBookId);
     }
 
     @When("I send a DELETE request to delete a book with non-existing {int}")
-    public void iSendRequestToDeleteBooks(int nonExistingBookId) {
+    public void sendRequestToDeleteBooksWithNonExistingId(int nonExistingBookId) {
         response = requestSpecification.when()
                 .delete("/books/" + nonExistingBookId);
     }
 
-    @Then("the response status should be {int}")
+    @Then("Delete response status should be {int}")
     public void responseStatusCodeShouldBe(int statusCode) {
         SerenityRest.restAssuredThat(response->response.statusCode(statusCode));
     }
 
     @When("I send a DELETE request to delete a book with invalid ID format {string}")
-    public void iSendADELETERequestToDeleteABookWithID(String invalidFormatBookId) {
+    public void sendRequestToDeleteBooksWithInvalidID(String invalidFormatBookId) {
         response = requestSpecification.when()
                 .delete("/books/" + invalidFormatBookId);
     }
