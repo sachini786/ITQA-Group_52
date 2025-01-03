@@ -3,9 +3,7 @@ package org.example.actions;
 import net.serenitybdd.core.annotations.findby.By;
 import net.thucydides.core.annotations.Step;
 import net.serenitybdd.core.steps.UIInteractionSteps;
-import org.openqa.selenium.By;
 
-import org.openqa.selenium.By;
 
 public class NavigationAction extends UIInteractionSteps {
     @Step("Navigate to the login page")
@@ -22,7 +20,6 @@ public class NavigationAction extends UIInteractionSteps {
     public void toOrangeHRMClaimPage() {
        $(By.xpath("//a[@href='/web/index.php/claim/viewClaimModule']")).click();
     }
-}
 
     @Step("Navigate to the Admin page")
     public void toOrangeHRMAdminPage(){

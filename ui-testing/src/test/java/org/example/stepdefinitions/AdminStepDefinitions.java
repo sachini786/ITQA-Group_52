@@ -17,8 +17,8 @@ public class AdminStepDefinitions {
     CommonAction commonAction;
     AdminAction adminAction;
 
-    @Given("user is in the dashboard")
-    public void userIsInTheDashboard() {
+    @Given("user in dashboard need to navigate to admin page")
+    public void userInDashboardNeedToNavigateToAdminPage() {
         navigateAction.toOrangeHRMLoginPage();
         loginAction.loginWithUsernameAndPassword("Admin","admin123");
         assertThat(commonAction.getUrl()).isEqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
@@ -36,7 +36,7 @@ public class AdminStepDefinitions {
 
     @Given("user is in Admin page")
     public void userIsInAdminPageAndClickAddButton(){
-        userIsInTheDashboard();
+        userInDashboardNeedToNavigateToAdminPage();
         userClickAdminSectionInSidebar();
 
 
@@ -66,7 +66,7 @@ public class AdminStepDefinitions {
 //page for the jobadding
     @Given("user is in the admin page")
     public void userIsInTheAdminPage(){
-        userIsInTheDashboard();
+        userInDashboardNeedToNavigateToAdminPage();
         userClickAdminSectionInSidebar();
     }
     @When("user clicked the job icon")

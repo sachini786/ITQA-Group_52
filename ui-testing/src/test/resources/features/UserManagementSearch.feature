@@ -1,7 +1,7 @@
 Feature: User Management - Search Functionality
 
 Scenario: Navigate to Admin page
-  Given user is in the dashboard
+  Given user in dashboard need to navigate to admin page
   When user click Admin section in sidebar
   Then user expect redirection to Admin section
 
@@ -10,8 +10,6 @@ Scenario: Navigate to Admin page
     When user clicking the add Button
     When user add new user role "userrole", employee name "John Doe",Status "Enabled", username "nadun", password "password1", confirmpassword "password1"
     Then user expect to redirected to the Admin section
-
-
 
 
   Scenario: navigate to the job page

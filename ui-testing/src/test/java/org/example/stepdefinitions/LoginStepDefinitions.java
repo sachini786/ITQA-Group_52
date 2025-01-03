@@ -4,7 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.actions.NavigationAction;
-import org.example.actions.DashboardAction;
 import org.example.actions.LoginAction;
 import org.example.actions.CommonAction;
 
