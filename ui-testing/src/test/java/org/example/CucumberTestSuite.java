@@ -10,4 +10,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
         plugin = {"pretty"},
         features = "classpath:features"
 )
-public class CucumberTestSuite {}
+public class CucumberTestSuite {
+
+
+}
