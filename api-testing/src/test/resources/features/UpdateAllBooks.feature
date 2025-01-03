@@ -18,3 +18,8 @@ Feature: Update Book by ID
     When I send a PUT request to update a book
     Then the response status code should be 403
 
+  @CreateBookForUpdateAndDelete
+  Scenario: Send an empty string as an admin
+    Given User need to update a book as an admin
+    When I send a request with an empty string value
+    Then the response status code should be 400

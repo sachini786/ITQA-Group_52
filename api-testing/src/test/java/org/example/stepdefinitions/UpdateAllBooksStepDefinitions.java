@@ -71,6 +71,20 @@ public class UpdateAllBooksStepDefinitions{
     }
 
 
+    @When("I send a request with an empty string value")
+    public void iSendARequestWithAnEmptyStringValueWithID() {
+        String requestBody ="""
+                {
+                "id": %d,
+                "title": "",
+                "author": "Rowan"
+                }
+                """;
+        response = requestSpecification.when()
+                .header("Content-Type", "application/json")
+                .body(requestBody.formatted(bookID))
+                .put("/books/" + bookID);
+    }
 }
 
 
